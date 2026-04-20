@@ -56,13 +56,13 @@ def process_audio_data(file_input, n_components):
     }
     return results_dict, None
         # UI visualization
-       if uploaded_file is not None:
+if uploaded_file is not None:
     results, error = process_audio_data(uploaded_file, n_comp)
 
     if error:
         st.error(error)
     else:
-        st.success(f"Finish processing file: {uploaded_file.name}")
+        st.success(f"Finish processing file: {uploaded_file.name}")  
         coll, col2, col3, col4 = st.columns(4)
         coll.metric("SNR", f"{results['snr']:.2f} dB")
         col2.metric("Latency", f"{results['lat']:.2f} ms")
