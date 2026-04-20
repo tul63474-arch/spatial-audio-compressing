@@ -15,6 +15,7 @@ with st.sidebar:
     st.title("Codec Control")
     uploaded_file = st.file_uploader("Upload file Ambisonic (.wav)", type=["wav"])
     st.divider()
+    # Dynamic slider based on input channel count
     if uploaded_file is not None:
         temp_data, _ = sf.read(uploaded_file)
         uploaded_file.seek(0)
@@ -27,22 +28,20 @@ with st.sidebar:
 @st.cache_data
 def process_audio_data(file_input, n_components):
     data, fs = sf.read(file_input)
-
+    # Validate FOA (First-Order Ambisonics) requirement
     if data.shape[1] < 4:
         return None, "Error: File has to have 4 channels Ambisonic (WXYZ)."
-
+    # Execute compression-decompression cycle
     codec = SpatialCodec(n_components=n_components)
     start_time = time.time()
-    
     compressed = codec.compress(data)
     reconstructed = codec.decompress(compressed)
     latency = (time.time() - start_time) * 1000
-
+    # Spatial Rendering & Metric Extraction
     binaural = utils.simple_binaural_render(reconstructed)
-
     o_e, c_e, r_e, freqs, psd, thresh = utils.get_3d_perceptual_metrics(data, compressed, reconstructed, fs)
     itds, ilds = utils.calculate_moving_cues(binaural)
-
+    # Localization Analysis (Energy Vectors)
     snr = utils.calculate_snr(data, reconstructed)
     mag_o, az_o, el_o = utils.calculate_energy_vector(data)
     mag_r, az_r, el_r = utils.calculate_energy_vector(reconstructed)
@@ -56,14 +55,14 @@ def process_audio_data(file_input, n_components):
         "itds": itds, "ilds": ilds
     }
     return results_dict, None
+        # UI visualization
+        if uploaded_file is not None:
+              results, error = process_audio_data(uploaded_file, n_comp)
 
-if uploaded_file is not None:
-    results, error = process_audio_data(uploaded_file, n_comp)
-
-    if error:
-        st.error(error)
-    else:
-        st.success(f"Finish processing file: {uploaded_file.name}")
+        if error:
+              st.error(error)
+        else:
+              st.success(f"Finish processing file: {uploaded_file.name}")
 
         coll, col2, col3, col4 = st.columns(4)
         coll.metric("SNR", f"{results['snr']:.2f} dB")
