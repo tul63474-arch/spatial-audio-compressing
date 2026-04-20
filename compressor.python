@@ -1,0 +1,18 @@
+import numpy as np
+from sklearn.decomposition import PCA
+
+class SpatialCodec:
+    def __init__(self, n_components=2):
+        self.n_components = n_components
+        self.pca = PCA(n_components=n_components)
+        
+    def compress(self, audio_data):
+        return self.pca.fit_transform(audio_data)
+    
+    def decompress(self, compressed_data):
+        return self.pca.inverse_transform(compressed_data)
+
+    def get_compression_ratio(self, original_shape):
+        orig_size = original_shape[0] * original_shape[1]
+        comp_size = original_shape[0] * self.n_components
+        return orig_size / comp_size
