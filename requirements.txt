@@ -1,6 +1,6 @@
-matplotlib==3.10.1+dfsg1
-numpy==2.2.4
-scikit-learn==1.8.0
-scipy==1.15.3
-soundfile==0.13.1
-streamlit==1.56.0
+matplotlib
+numpy
+scikit-learn
+scipy
+soundfile
+streamlit
