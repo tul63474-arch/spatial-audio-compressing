@@ -40,7 +40,7 @@ def process_audio_data(file_input, n_components):
 
     binaural = utils.simple_binaural_render(reconstructed)
 
-    o_e, c_e, r_e, freqs, psd, thresh = utils.get_3d_perceptual_metrics(data, compressed, reconstructed)
+    o_e, c_e, r_e, freqs, psd, thresh = utils.get_3d_perceptual_metrics(data, compressed, reconstructed, fs)
     itds, ilds = utils.calculate_moving_cues(binaural)
 
     snr = utils.calculate_snr(data, reconstructed)
