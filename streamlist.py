@@ -1,4 +1,4 @@
-     import streamlit as st
+import streamlit as st
 import numpy as np
 import soundfile as sf
 import matplotlib.pyplot as plt
