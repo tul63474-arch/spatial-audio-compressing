@@ -1,26 +1,25 @@
 import streamlit as st
 
 def apply_custom_css():
-    """Áp dụng CSS để đổi tone màu app sang Xanh da trời"""
     st.markdown("""
         <style>
-        /* Màu nền Sidebar */
+        # Sidebar colour
         [data-testid="stSidebar"] {
             background-color: #f0f8ff;
             border-right: 2px solid #3498db;
         }
-        /* Tiêu đề Sidebar */
+       # Sidebar heading
         [data-testid="stSidebar"] h1 {
             color: #1f77b4;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        /* Màu chủ đạo cho Button và Slider */
+       # Colour for Button & Slider
         .stButton>button {
             background-color: #3498db;
             color: white;
             border-radius: 5px;
         }
-        /* Tùy chỉnh khung Metric */
+        # Customize for Metric frame
         div[data-testid="stMetric"] {
             background-color: #ffffff;
             border: 1px solid #3498db;
@@ -28,7 +27,7 @@ def apply_custom_css():
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
         }
-        /* Chỉnh màu chữ label của Metric */
+        # Adjust text colour of Metric label
         div[data-testid="stMetricLabel"] {
             color: #1f77b4 !important;
             font-weight: bold;
@@ -37,5 +36,4 @@ def apply_custom_css():
     """, unsafe_allow_html=True)
 
 def blue_header(text):
-    """Tạo tiêu đề có màu xanh da trời"""
     st.markdown(f"<h2 style='color: #1f77b4;'>{text}</h2>", unsafe_allow_html=True)
